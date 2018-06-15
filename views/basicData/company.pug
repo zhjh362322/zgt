@@ -1,0 +1,17 @@
+extends ../layout
+
+block content
+    form(method="post", action="/basicdata/company")
+        div
+            label 编码
+            input(type="text", name="serial")
+        div
+            label 中文名
+            input(type="text", name="name")
+        div
+            label 出险次数
+            input(type="text", name="claim")
+        div
+            label 运单数量
+            input(type="text", name="orderNum")
+        button(type="submit") 提交

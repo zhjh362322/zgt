@@ -1,0 +1,28 @@
+extends ../layout
+
+block content
+    form(method="post", action="/basicdata/shipper")
+        div
+            label 联系人
+            input(type="text", name="contacts")
+        div
+            label 电话
+            input(type="text", name="cellphone")
+        div
+            label 企业名称
+            input(type="text", name="companyName")
+        div
+            label 详细地址
+            input(type="text", name="address")
+        div
+            label 客户类型
+            select(name="type")
+                option(value="0") 收发货单位
+                option(value="1") 发货单位
+                option(value="2") 收货单位
+        div
+            label 绑定加盟商
+            select(name="plant")
+                each plant in plants
+                    option(value=plant._id) #{plant.name}
+        button(type="submit") 提交
