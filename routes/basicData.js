@@ -4,10 +4,10 @@ var Company = require('../database/model/companyModel');
 var Plant = require('../database/model/plantModel');
 var User = require('../database/model/userModel');
 var Shipper = require('../database/model/shipperModel');
+var Quotation = require('../database/model/quotationModel');
 router.route('/plant').get(function(req, res) {
     // 加盟商子公司下拉数据
     Company.find(null, 'name', function (err, docs) {
-        console.log(docs)
         if(err) {
             res.status(500).json({err: err.message});
         } else {
@@ -91,7 +91,6 @@ router.route('/users').get(function(req, res) {
 
 router.route('/shipper').get(function(req, res) {
     Plant.find(null, {name: 1}, function(err, docs) {
-        console.log(docs)
         if(err) {
             res.status(500).json({err: err.message});
         } else {
@@ -111,6 +110,26 @@ router.route('/shipper').get(function(req, res) {
             }, function(err, docs) {
                 res.status(200).json(docs);
             })
+        }
+    })
+})
+
+router.route('/quotation').get(function(req, res) {
+    Plant.find(null, {name: 1}, function(err, docs) {
+        if(err) {
+            res.status(500).json({err: err.message});
+        } else {
+            res.render('basicData/quotation', {plants: docs});
+        }
+    })
+}).post(function (req, res) {
+    var formData = req.body;
+    var quotation = new Quotation(formData);
+    quotation.save(function(err, doc) {
+        if(err) {
+            res.status(500).json(err);
+        } else {
+            res.status(200).json(doc);
         }
     })
 })

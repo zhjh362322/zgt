@@ -7,7 +7,7 @@ var bodyParser = require('body-parser');
 var mongoose = require('./database/db.js');
 var index = require('./routes/index');
 var users = require('./routes/users');
-var minilogin = require('./routes/minilogin');
+var mini = require('./routes/mini');
 var basicData = require('./routes/basicData');
 var app = express();
 
@@ -25,7 +25,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/users', users);
-app.use('/minilogin', minilogin);
+app.use('/mini', mini);
 app.use('/basicdata', basicData);
 
 // catch 404 and forward to error handler

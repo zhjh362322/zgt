@@ -3,12 +3,14 @@ var router = express.Router();
 var crypto = require('crypto');
 var Plant = require('../database/model/plantModel');
 var User = require('../database/model/userModel');
+var Quotation = require('../database/model/quotationModel');
+var Consignment = require('../database/model/consignmentModel');
 
 // 此路由只接受小程序请求，其他请求返回404
 var err = new Error('Not Found');
 err.status = 404;
 
-router.post('/', function(req, res, next) {
+router.post('/login', function(req, res, next) {
     var data = req.body;
     var md5 = crypto.createHash('md5');
     var newPwd = md5.update(data.password).digest('hex');
@@ -38,7 +40,49 @@ router.post('/', function(req, res, next) {
         next(err);
     }
 })
-
+router.get('/quotation', function(req, res, next) {
+    console.log(req.query)
+    var q = req.query;
+    if(q.from === 'mini') {
+        var condition = {};
+        if(q["startCity"]) {
+            var startCity = new RegExp(q.startCity)
+            condition.startCity = startCity;
+        }
+        if(q["endCity"]) {
+            var endCity = new RegExp(q.endCity)
+            condition.endCity = endCity;
+        }
+        console.log(condition)
+        Quotation.find(condition, function(err, docs) {
+            if(err) {
+                res.status(500).json({err: err.message});
+            } else {
+                res.send(docs)
+            }
+        })
+    } else {
+        next(err);
+    }
+})
+router.post('/consignment', function(req, res, next) {
+    var data = req.body;
+    console.log(data)
+    if(data.from === 'mini') {
+        var consignment = new Consignment(data);
+        consignment.save(function(err, doc) {
+            if(err) {
+                res.status(500).json(err);
+            } else {
+                Consignment.find(null, function(err, docs) {
+                    res.send(docs);
+                })
+            }
+        })
+    } else {
+        next(err);
+    }
+})
 module.exports = router;
 
 // {
