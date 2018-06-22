@@ -41,7 +41,6 @@ router.post('/login', function(req, res, next) {
     }
 })
 router.get('/quotation', function(req, res, next) {
-    console.log(req.query)
     var q = req.query;
     if(q.from === 'mini') {
         var condition = {};
@@ -65,16 +64,26 @@ router.get('/quotation', function(req, res, next) {
         next(err);
     }
 })
-router.post('/consignment', function(req, res, next) {
+
+router.route('/consignment').get(function(req, res, next) {
+    var q = req.query;
+    if(q.from === 'mini') {
+        var uid = q.uid;
+        Consignment.findAllOrder(uid, function(err, docs) {
+            res.send(docs);
+        })
+    } else {
+        next(err);
+    }
+}).post(function(req, res, next) {
     var data = req.body;
-    console.log(data)
     if(data.from === 'mini') {
         var consignment = new Consignment(data);
         consignment.save(function(err, doc) {
             if(err) {
                 res.status(500).json(err);
             } else {
-                Consignment.find(null, function(err, docs) {
+                Consignment.findAllOrder(data.uid, function(err, docs) {
                     res.send(docs);
                 })
             }
@@ -83,6 +92,12 @@ router.post('/consignment', function(req, res, next) {
         next(err);
     }
 })
+
+router.get('/test', function(req, res, next) {
+    Consignment.findAllOrder(function(err, docs) {
+        res.send(docs)
+    })
+})
 module.exports = router;
 
 // {
@@ -90,3 +105,7 @@ module.exports = router;
 //     uid: '15077777777',
 //     password: '123'
 // }
+
+// Consignment.findAllOrder(data.uid, function(err, docs) {
+//     res.send(docs);
+// })

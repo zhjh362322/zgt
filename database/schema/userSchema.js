@@ -33,7 +33,7 @@ UserSchema.statics = {
     // path:嵌套的属性， select:查询字段， match:obj附加查询条件， options:obj其他条件,limit之类
     // populate:嵌套查询
     findPlant: function (_id, cb) {
-        return this.findOne({_id: _id}, {uid: 1, level: 1, name: 1, email: 1, cellphone: 1, _id: 0})
+        return this.findOne({_id: _id}, {uid: 1, level: 1, name: 1, email: 1, cellphone: 1})
             .populate({
                 path: 'owner.plant',
                 select: 'serial name claim orderNum -_id',
@@ -53,7 +53,7 @@ UserSchema.statics = {
             .exec(cb);
     },
     findCompany: function (_id, cb) {
-        return this.findOne({_id: _id}, {uid: 1, level: 1, name: 1, email: 1, cellphone: 1, _id: 0})
+        return this.findOne({_id: _id}, {uid: 1, level: 1, name: 1, email: 1, cellphone: 1})
             .populate({path: 'owner.company', select: 'name claim orderNum -_id'})
             .exec(cb);
     },
