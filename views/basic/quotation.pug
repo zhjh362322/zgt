@@ -1,0 +1,84 @@
+extends ../layout
+
+block content
+    div
+        //a(href="../basicData/plant") 新增
+        button.showAdd.btn.btn-primary 添加
+    table.table.table-bordered
+        thead
+            tr
+                th #
+                th 线路名称
+                th 始发城市
+                th 到货城市
+                th 隶属加盟商
+                th 联系人
+                th 电话
+                th 价格
+                th 时效
+                th(colspan="2") 操作
+        tbody
+            each item, index in quotation
+                tr
+                    td #{index + 1}
+                    td #{item.name}
+                    td #{item.startCity}
+                    td #{item.endCity}
+                    td #{item.plant.name}
+                    td #{item.contacts}
+                    td #{item.cellphone}
+                    td #{item.price}
+                    td #{item.time}
+                    td
+                        a.del(data-id=item._id) 删除
+                    td
+                        a.mod(data-id=item._id) 修改
+    #quotationModal.modal.fade
+        .modal-dialog
+            .modal-content
+                .modal-header
+                    button.close(data-dismiss="modal") &times;
+                    .modal-title 新增线路
+                .modal-body
+                    form#quotation.form-horizontal
+                        input(type="hidden", name="id")
+                        div.form-group
+                            label.control-label.col-sm-2 展示图
+                            .col-sm-10
+                                input.form-control.ad(type="file", name="qheadimg")
+                        div.form-group
+                            label.control-label.col-sm-2 线路名称
+                            .col-sm-10
+                                input.form-control(type="text", name="name")
+                        div.form-group
+                            label.control-label.col-sm-2 始发城市
+                            .col-sm-10
+                                input.form-control(type="text", name="startCity")
+                        div.form-group
+                            label.control-label.col-sm-2 到货城市
+                            .col-sm-10
+                                input.form-control(type="text", name="endCity")
+                        div.form-group
+                            label.control-label.col-sm-2 隶属加盟商
+                            .col-sm-10
+                                select.form-control.plantSelect(name="plant")
+                        div.form-group
+                            label.control-label.col-sm-2 联系人
+                            .col-sm-10
+                                input.form-control(type="text", name="contacts")
+                        div.form-group
+                            label.control-label.col-sm-2 电话
+                            .col-sm-10
+                                input.form-control(type="text", name="cellphone")
+                        div.form-group
+                            label.control-label.col-sm-2 价格
+                            .col-sm-10
+                                input.form-control(type="number", name="price")
+                        div.form-group
+                            label.control-label.col-sm-2 时效
+                            .col-sm-10
+                                input.form-control(type="number", name="time")
+                .modal-footer
+                    button.btn.btn-default(data-dismiss="modal") 关闭
+                    button.save.btn.btn-primary 保存
+    script(src="/javascripts/basic/quotation.js")

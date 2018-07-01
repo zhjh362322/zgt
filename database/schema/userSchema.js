@@ -60,6 +60,14 @@ UserSchema.statics = {
     findByUid: function (uid, cb) {
         return this.findOne({uid: uid})
             .exec(cb);
+    },
+    findAll: function(cb) {
+        return this.find()
+            .populate({
+                path: 'owner.plant owner.company',
+                select: 'name'
+            })
+            .exec(cb);
     }
 };
 

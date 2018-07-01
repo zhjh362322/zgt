@@ -1,9 +1,10 @@
+var config = require('../config/config');
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://127.0.0.1:27017/zgt');
+mongoose.connect(config.dburl + config.dbname);
 
 var db = mongoose.connection;
 db.on('connected', function() {
-	console.log('mongoose default connection open to :' + '172.16.84.156:27017/zgt');
+	console.log('mongoose default connection open to :' + config.dburl + config.dbname);
 });
 db.on('error', function(err) {
 	console.log('mongoose连接错误： ' + err);

@@ -15,6 +15,16 @@ var ShipperSchema = new Schema({
     timestamps: true
 });
 
+ShipperSchema.statics = {
+    findAll: function(cb) {
+        return this.find()
+            .populate({
+                path: 'plant',
+                select: 'name'
+            })
+            .exec(cb)
+    }
+}
 
 
 module.exports = ShipperSchema;

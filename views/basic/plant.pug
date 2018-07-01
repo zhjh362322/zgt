@@ -1,0 +1,75 @@
+extends ../layout
+
+block content
+    div
+        //a(href="../basicData/plant") 新增
+        button.showAdd.btn.btn-primary 添加
+    table.table.table-bordered
+        thead
+            tr
+                th #
+                th 编码
+                th 中文名
+                th 加盟商类型
+                th 所属子公司
+                th 出险次数
+                th 运单数量
+                th(colspan="2") 操作
+        tbody
+            each item, index in plant
+                tr
+                    td #{index + 1}
+                    td #{item.serial}
+                    td #{item.name}
+                    - if(item.type)
+                        td 专线
+                    - else
+                        td 三方
+                    td #{item.company.name}
+                    td #{item.claim}
+                    td #{item.orderNum}
+                    td
+                        a.del(data-id=item._id) 删除
+                    td
+                        a.mod(data-id=item._id) 修改
+    #plantModal.modal.fade
+        .modal-dialog
+            .modal-content
+                .modal-header
+                    button.close(data-dismiss="modal") &times;
+                    .modal-title 新增加盟商
+                .modal-body
+                    form#plant.form-horizontal
+                        input(type="hidden", name="id")
+                        div.form-group
+                            label.control-label.col-sm-2 编码
+                            .col-sm-10
+                                input.form-control(type="text", name="serial")
+                        div.form-group
+                            label.control-label.col-sm-2 中文名
+                            .col-sm-10
+                                input.form-control(type="text", name="name")
+                        div.form-group
+                            label.control-label.col-sm-2 类型
+                            .col-sm-10
+                                select.form-control(name="type")
+                                        option(value="0") 三方
+                                        option(value="1") 专线
+                        div.form-group
+                            label.control-label.col-sm-2 出险次数
+                            .col-sm-10
+                                input.form-control(type="text", name="claim")
+                        div.form-group
+                            label.control-label.col-sm-2 运单数量
+                            .col-sm-10
+                                input.form-control(type="text", name="orderNum")
+                        div.form-group
+                            label.control-label.col-sm-2 归属公司
+                            .col-sm-10
+                                select.form-control.companySelect(name="company")
+                .modal-footer
+                    button.btn.btn-default(data-dismiss="modal") 关闭
+                    button.save.btn.btn-primary 保存
+    script(src="/javascripts/basic/plant.js")
+
+

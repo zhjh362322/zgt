@@ -3,9 +3,6 @@ var Schema = mongoose.Schema;
 
 var ConsignmentSchema = new Schema({
     cargo: Schema.Types.Mixed,    // 和 {} 等价
-    // weight: Number,
-    // volume: Number,
-    // num: Number,
     price: Number,
     status: {
         type: Number,
@@ -37,6 +34,21 @@ ConsignmentSchema.statics = {
             },{
                 path: 'consignee',
                 select: 'companyName contacts cellphone address'
+            }])
+            .sort({createdAt: -1})
+            .exec(cb)
+    },
+    findAll: function(cb) {
+        return this.find()
+            .populate([{
+                path: 'consigner',
+                select: 'companyName contacts cellphone address'
+            },{
+                path: 'consignee',
+                select: 'companyName contacts cellphone address'
+            },{
+                path: 'uid',
+                select: 'name'
             }])
             .sort({createdAt: -1})
             .exec(cb)

@@ -1,0 +1,75 @@
+extends ../layout
+
+block content
+    div
+        button.showAdd.btn.btn-primary 添加
+    table.table.table-bordered
+        thead
+            tr
+                th #
+                th 企业名称
+                th 联系人
+                th 电话
+                th 详细地址
+                th 客户类型
+                th 绑定加盟商
+                th(colspan="2") 操作
+        tbody
+            each item, index in shipper
+                tr
+                    td #{index + 1}
+                    td #{item.companyName}
+                    td #{item.contacts}
+                    td #{item.cellphone}
+                    td #{item.address}
+                    - if(item.type == 1)
+                        td 发货单位
+                    - else if(item.type == 2)
+                        td 收货单位
+                    - else
+                        td 收、发货单位
+                    td #{item.plant.name}
+                    td
+                        a.del(data-id=item._id) 删除
+                    td
+                        a.mod(data-id=item._id) 修改
+    #shipperModal.modal.fade
+        .modal-dialog
+            .modal-content
+                .modal-header
+                    button.close(data-dismiss="modal") &times;
+                    .modal-title 新增客户
+                .modal-body
+                    form#shipper.form-horizontal
+                        input(type="hidden", name="id")
+                        div.form-group
+                            label.control-label.col-sm-2 企业名称
+                            .col-sm-10
+                                input.form-control(type="text", name="companyName")
+                        div.form-group
+                            label.control-label.col-sm-2 联系人
+                            .col-sm-10
+                                input.form-control(type="text", name="contacts")
+                        div.form-group
+                            label.control-label.col-sm-2 电话
+                            .col-sm-10
+                                input.form-control(type="text", name="cellphone")
+                        div.form-group
+                            label.control-label.col-sm-2 详细地址
+                            .col-sm-10
+                                input.form-control(type="text", name="address")
+                        div.form-group
+                            label.control-label.col-sm-2 客户类型
+                            .col-sm-10
+                                select.form-control(name="type")
+                                    option(value="0") 收发货单位
+                                    option(value="1") 发货单位
+                                    option(value="2") 收货单位
+                        div.form-group
+                            label.control-label.col-sm-2 所有者
+                            .col-sm-10
+                                select.form-control.plantSelect(name="plant")
+                .modal-footer
+                    button.btn.btn-default(data-dismiss="modal") 关闭
+                    button.save.btn.btn-primary 保存
+    script(src="/javascripts/basic/shipper.js")

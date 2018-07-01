@@ -1,8 +1,10 @@
 .owner {
     display: none;
 }
-
-
 .active {
     display: block;
+}
+
+.error {
+    color: red;
 }

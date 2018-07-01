@@ -1,0 +1,152 @@
+body {
+    background-color: #F5F5F5;
+}
+.top-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 56px;
+    background-color: #FFF;
+    border-bottom: 1px solid #DADADA;
+}
+.brand {
+    position: absolute;
+    top: 50%;
+    left: 100px;
+    margin-top: -10px;
+    text-align: center;
+}
+.header {
+    position: absolute;
+    top: 50%;
+    left: 240px;
+    margin-top: -12px;
+    display: inline-block;
+}
+.top-nav button {
+    padding: 0;
+    background-color: transparent;
+    border: none;
+}
+.top-nav button:focus {
+    outline: 0;
+}
+.icon-bar {
+    margin-top: 4px;
+    display: block;
+    width: 22px;
+    height: 2px;
+    border-radius: 1px;
+    background-color: #888;
+}
+.userinfo {
+    position: absolute;
+    top: 50%;
+    right: 60px;
+    margin-top: -17px;
+    display: inline-block;
+}
+.userinfo img {
+    margin-right: 10px;
+    width: 35px;
+    height:35px;
+    border-radius: 35px;
+}
+.userinfo .userinfodrop {
+    display: none;
+    padding: 5px;
+    position: absolute;
+    top: 45px;
+    width: 200px;
+    height: 100px;
+    background-color: #FFF;
+    list-style: none;
+}
+/* 左侧菜单 */
+.sidebar-menu {
+    position: fixed;
+    top: 56px;
+    left: 0;
+    bottom: 0;
+    width: 240px;
+    background-color: #17232C;
+}
+.sidebar-menu ul {
+    padding: 0;
+    list-style: none;
+}
+/* 菜单， 为了后面颜色块提供参照相对定位 */
+.sidebar-menu > ul > li {
+    position: relative;
+}
+.sidebar-menu ul li {
+    border-top: 1px solid #17232C;
+    background-color: #1C2B36;
+}
+.sidebar-menu ul ul li {
+    padding: 9px 45px;
+}
+.menu-list {
+    display: none;
+}
+/* blk颜色块 */
+.menu-block {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 5px;
+    height: 39px;
+}
+.basic .menu-block {
+    background-color: #2BAAB1;
+}
+.sidebar-menu .order .menu-block {
+    background-color: #7266BA;
+}
+/* 图标和文字设置 */
+.menu-icon {
+    display: inline-block;
+    width: 45px;
+    line-height: 39px;
+    text-align: center;
+    color: #8dacc4;
+}
+.menu-text {
+    display: inline-block;
+    line-height: 39px;
+}
+/* active效果 */
+.sidebar-menu li.active .menu-text a, .sidebar-menu li.active > a {
+    color: #FFF;
+}
+.sidebar-menu li.active ul{
+    display: block;
+}
+/* 主模块 */
+.main-container {
+    margin-top: 60px;
+    margin-left: 242px;
+    padding: 20px;
+}
+.main-container ol {
+    background-color: #FFF;
+}
+
+
+
+
+
+
+@media (max-width: 768px) {
+    .brand {
+        left: 50%;
+        margin-left: -21px;
+    }
+    .header {
+        left: 5px;
+    }
+    .userinfo {
+        right: 5px;
+    }
+}

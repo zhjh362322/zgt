@@ -1,0 +1,92 @@
+extends ../layout
+
+block content
+    div
+        button.showAdd.btn.btn-primary 添加
+    table.table.table-bordered
+        thead
+            tr
+                th #
+                th 帐号
+                th 姓名
+                th 邮箱
+                th 电话
+                th 类型
+                th 状态
+                th 所有者
+                th(colspan="2") 操作
+        tbody
+            each item, index in users
+                tr
+                    td #{index + 1}
+                    td #{item.uid}
+                    td #{item.name}
+                    td #{item.email}
+                    td #{item.cellphone}
+                    - if (item.status)
+                        td 启用
+                    - else
+                        td 停用
+                    - if (item.level == 0)
+                        td 管理员
+                        td
+                    - else if(item.level == 1)
+                        td 子公司
+                        td #{item.owner.company.name}
+                    - else
+                        td 加盟商
+                        td #{item.owner.plant.name}
+                    td
+                        a.del(data-id=item._id) 删除
+                    td
+                        a.mod(data-id=item._id) 修改
+    #userModal.modal.fade
+        .modal-dialog
+            .modal-content
+                .modal-header
+                    button.close(data-dismiss="modal") &times;
+                    .modal-title 新增用户
+                .modal-body
+                    form#user.form-horizontal
+                        input(type="hidden", name="id")
+                        div.form-group
+                            label.control-label.col-sm-2 用户名
+                            .col-sm-10
+                                input.form-control(type="text", name="uid")
+                        div.form-group
+                            label.control-label.col-sm-2 密码
+                            .col-sm-10
+                                input.form-control(type="text", name="password")
+                        div.form-group
+                            label.control-label.col-sm-2 姓名
+                            .col-sm-10
+                                input.form-control(type="text", name="name")
+                        div.form-group
+                            label.control-label.col-sm-2 邮箱
+                            .col-sm-10
+                                input.form-control(type="email", name="email")
+                        div.form-group
+                            label.control-label.col-sm-2 电话
+                            .col-sm-10
+                                input.form-control(type="tel", name="cellphone")
+                        div.form-group(class="level")
+                            label.control-label.col-sm-2 类型
+                            .col-sm-10
+                                select.form-control(name="level")
+                                    option(value="0") 管理员
+                                    option(value="1") 子公司
+                                    option(value="2") 加盟商
+                        div.form-group
+                            label.control-label.col-sm-2 状态
+                            .col-sm-10
+                                select.form-control(name="status")
+                                    option(value="1") 启用
+                                    option(value="0") 停用
+                        div.form-group(class="owner")
+                            label.control-label.col-sm-2 所有者
+                            .col-sm-10
+                                select.form-control.ownerSelect(name="owner")
+                .modal-footer
+                    button.btn.btn-default(data-dismiss="modal") 关闭
+                    button.save.btn.btn-primary 保存
+    script(src="/javascripts/basic/user.js")

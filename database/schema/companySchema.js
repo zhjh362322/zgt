@@ -5,7 +5,15 @@ var CompanySchema = new Schema({
     serial: String,
     name: String,
     claim: Number,
-    orderNum: Number
+    orderNum: Number,
+    plant: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Plant'
+    }],
+    user: [{
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+    }]
 }, {
     timestamps: true
 });

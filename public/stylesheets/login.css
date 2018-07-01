@@ -1,0 +1,23 @@
+body {
+    background-color: #F0F2F4;
+}
+.sign-in-inner {
+    margin: 10% auto;
+    width: 370px;
+}
+.login-brand {
+    margin-bottom: 30px;
+    text-align: center;
+    font-size: 30px;
+    font-weight: 700;
+    color: #2baab1;
+}
+.loginbtn {
+    width: 100%;
+    color: #FFF;
+    background-color: #26969c;
+}
+.loginbtn:hover {
+    color: #FFF;
+    background-color: #32c5cd;
+}

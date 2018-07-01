@@ -1,0 +1,55 @@
+extends ../layout
+block content
+    div
+        button.showAdd.btn.btn-primary 添加
+    table.table.table-bordered
+        thead
+            tr
+                th #
+                th 编码
+                th 中文名
+                th 出险次数
+                th 运单数量
+                th(colspan="2") 操作
+        tbody
+            each item, index in company
+                tr
+                    td #{index + 1}
+                    td #{item.serial}
+                    td #{item.name}
+                    td #{item.claim}
+                    td #{item.orderNum}
+                    td
+                        a.del(data-id=item._id) 删除
+                    td
+                        a.mod(data-id=item._id) 修改
+
+    #companyModal.modal.fade
+        .modal-dialog
+            .modal-content
+                .modal-header
+                    button.close(data-dismiss="modal") &times;
+                    .modal-title 新增子公司
+                .modal-body
+                    form#company.form-horizontal
+                        input(type="hidden", name="id")
+                        .form-group
+                            label.col-sm-2.control-label 编码
+                            .col-sm-10
+                                input.form-control(type="text", name="serial", class="serial")
+                        .form-group
+                            label.col-sm-2.control-label 公司名称
+                            .col-sm-10
+                                input.form-control(type="text", name="name")
+                        .form-group
+                            label.col-sm-2.control-label 出险次数
+                            .col-sm-10
+                                input.form-control(type="text", name="claim")
+                        .form-group
+                            label.col-sm-2.control-label 运单数量
+                            .col-sm-10
+                                input.form-control(type="text", name="orderNum")
+                .modal-footer
+                    button.btn.btn-default(data-dismiss="modal") 关闭
+                    button.save.btn.btn-primary 保存
+    script(src="/javascripts/basic/company.js")
