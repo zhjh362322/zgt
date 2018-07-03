@@ -120,5 +120,6 @@ $(function() {
                 }
             })
         }
+        $('label.error').hide();
     })
 })

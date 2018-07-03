@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var config = require('../../config/config');
 var Quotation = require('../../database/model/quotationModel');
-var Plant = require('../../database/model/PlantModel');
+var Plant = require('../../database/model/plantModel');
 var upload = require('../../utils/multerUtil');
 
 

@@ -2,7 +2,7 @@ $(function() {
     // -----------------------------------------company---------------------------------
     function valContent(){
         return $("#company").validate({
-            // errorLabelContainer: $(".error"),
+            errorLabelContainer: $(".error"),
             rules: {
                 serial: 'required',
                 name: 'required'
@@ -72,5 +72,9 @@ $(function() {
                 $('#companyModal').modal('show');
             }
         })
+    })
+
+    $('#companyModal').on('show.bs.modal', function() {
+        $('label.error').hide();
     })
 })

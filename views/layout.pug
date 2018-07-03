@@ -1,9 +1,13 @@
 doctype html
 html
     head
+        meta(charset="utf-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1")
         title= title
         link(rel='stylesheet', href='/libs/bootstrap/dist/css/bootstrap.css')
         link(rel='stylesheet', href='/stylesheets/layout.css')
+        link(rel='stylesheet', href='/stylesheets/basic.css')
         block css
         script(src="/libs/jquery/dist/jquery.min.js")
     body
@@ -18,10 +22,16 @@ html
                 .userinfo
                     a
                         image(src="/images/avatar1.png")
-                        //span #{user.name}
                     ul.userinfodrop
-                        //li #{user.uid}
-                        //li #{user.email}
+                        li
+                            span 帐号
+                            span #{user.uid}
+                        li
+                            span 姓名
+                            span #{user.name}
+                        li
+                            span 邮箱
+                            span #{user.email}
                         li
                             a(href="/users/logout") 登出
             aside.sidebar-menu
@@ -49,16 +59,11 @@ html
                             icon.glyphicon.glyphicon-th-list
                         .menu-text
                             a(href="/consignment") 运单列表
-                    li
-                        .menu-block
-                        .menu-icon
-                            icon.glyphicon.glyphicon-book
-                        .menu-text
-                            a(href="/users/logout") 登出
             .main-container
-                //ol.breadcrumb
-                //    each item in breadcrumb
-                //        li= item
+                - if (breadcrumb)
+                    ol.breadcrumb
+                        each item in breadcrumb
+                            li= item
                 block content
         script(src="/libs/bootstrap/dist/js/bootstrap.min.js")
         script(src="/libs/jquery/dist/jquery.validate.min.js")

@@ -5,7 +5,7 @@ $(function() {
 
     function valContent(){
         return $("#plant").validate({
-            // errorLabelContainer: $(".error"),
+            errorLabelContainer: $(".error"),
             rules: {
                 serial: 'required',
                 name: 'required',
@@ -98,5 +98,6 @@ $(function() {
                 }
             })
         }
+        $('label.error').hide();
     })
 })

@@ -4,7 +4,7 @@ var crypto = require('crypto');
 var User = require('../database/model/userModel');
 /* GET users listing. */
 router.route('/login').get(function (req, res) {
-    res.render('welcome', {title: 'login'});
+    res.redirect('index');
 }).post(function (req, res) {
     var formData = req.body;
     var password = req.body.password;
@@ -13,7 +13,9 @@ router.route('/login').get(function (req, res) {
     User.findOne({uid: formData.uid, password: newPwd, status: 1}, function (err, doc) {
         if(doc) {
             req.session.user = doc;
-            res.render('welcome');
+            res.send(200)
+            // ajax提交不能render出来，action可以
+            // res.render('welcome', {user: doc});
         } else {
             res.send('错误')
         }

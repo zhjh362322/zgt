@@ -1,28 +1,33 @@
 extends ../layout
 block content
-    div
+    .tableHead
         button.showAdd.btn.btn-primary 添加
-    table.table.table-bordered
-        thead
-            tr
-                th #
-                th 编码
-                th 中文名
-                th 出险次数
-                th 运单数量
-                th(colspan="2") 操作
-        tbody
-            each item, index in company
+        form#search
+            .input-group
+                input.form-control(type="text")
+                span.input-group-addon 查询
+    .table-responsive
+        table.table.table-bordered
+            thead
                 tr
-                    td #{index + 1}
-                    td #{item.serial}
-                    td #{item.name}
-                    td #{item.claim}
-                    td #{item.orderNum}
-                    td
-                        a.del(data-id=item._id) 删除
-                    td
-                        a.mod(data-id=item._id) 修改
+                    th #
+                    th 编码
+                    th 中文名
+                    th 出险次数
+                    th 运单数量
+                    th(colspan="2") 操作
+            tbody
+                each item, index in company
+                    tr
+                        td #{index + 1}
+                        td #{item.serial}
+                        td #{item.name}
+                        td #{item.claim}
+                        td #{item.orderNum}
+                        td
+                            a.del(data-id=item._id) 删除
+                        td
+                            a.mod(data-id=item._id) 修改
 
     #companyModal.modal.fade
         .modal-dialog

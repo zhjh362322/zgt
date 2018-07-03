@@ -99,5 +99,6 @@ $(function() {
                 }
             })
         }
+        $('label.error').hide();
     })
 })

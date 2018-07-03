@@ -25,14 +25,8 @@ $(function() {
     $('.userinfo').click(function() {
         $('.userinfodrop').toggle()
     })
-    // $('.header').click(function() {
-    //     $('.menu-text').toggle();
-    //     var width = $('.sidebar-menu').css('width');
-    //     console.log(width)
-    //     if(width == '50px') {
-    //         $('.sidebar-menu').css('width', '240px');
-    //     } else {
-    //         $('.sidebar-menu').css('width', '50px');
-    //     }
-    // })
+    $('.header').click(function() {
+        $('.sidebar-menu').toggleClass('collapseMenu');
+        $('.main-container').toggleClass('collapseMenu');
+    })
 })

@@ -104,5 +104,6 @@ $(function() {
                 $('.owner').removeClass('active');
             }
         })
+        $('label.error').hide();
     })
 })
