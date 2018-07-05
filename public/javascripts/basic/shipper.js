@@ -20,7 +20,14 @@ $(function() {
         $('#shipper input').val('');
         $('#shipperModal').modal('show');
     })
-
+    $('.search').click(function(e) {
+        var formData = $('#search').serializeArray();
+        var data = {};
+        $.each(formData, function(i, field) {
+            data[this.name] = this.value;
+        })
+        window.location.href = '/basic/shipper?search=' + data.search;
+    })
     $('.save').click(function(e) {
         var formData = $('#shipper').serializeArray();
         // 这里要个验证过程 ...

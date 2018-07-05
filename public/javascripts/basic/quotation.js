@@ -16,7 +16,14 @@ $(function() {
         $('#quotation input').val('');
         $('#quotationModal').modal('show');
     })
-
+    $('.search').click(function(e) {
+        var formData = $('#search').serializeArray();
+        var data = {};
+        $.each(formData, function(i, field) {
+            data[this.name] = this.value;
+        })
+        window.location.href = '/basic/quotation?search=' + data.search;
+    })
     $('.save').click(function(e) {
         var fm = new FormData($('#quotation')[0]);
         // var img = $('.ad')[0].files[0];

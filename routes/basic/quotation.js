@@ -5,10 +5,27 @@ var Quotation = require('../../database/model/quotationModel');
 var Plant = require('../../database/model/plantModel');
 var upload = require('../../utils/multerUtil');
 
-
 // 新增和列表
 router.route('/').get(function(req, res) {
-    // 展示用户列表
+    var search = req.query.search;
+    if(!search) {
+        Quotation.findAll(function(err, docs) {
+            if(err) {
+                res.status(500).json({err: '网络错误'})
+            } else {
+                res.render('basic/quotation', { pid: 1, subid: 15, breadcrumb: ['基础资料', '线路报价'], quotation: docs });
+            }
+        })
+    } else {
+        var reg = new RegExp(search, 'i')
+        Quotation.findAll({$or: [{serial: reg}, {name: reg}]}, function(err, docs) {
+            if(err) {
+                res.status(500).json({err: '网络错误'})
+            } else {
+                res.render('basic/quotation', { pid: 1, subid: 15, breadcrumb: ['基础资料', '线路报价'], quotation: docs });
+            }
+        })
+    }
     Quotation.findAll(function(err, docs) {
         if(err) {
             res.status(500).json({err: '网络错误'})

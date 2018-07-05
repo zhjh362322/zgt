@@ -16,8 +16,8 @@ var ShipperSchema = new Schema({
 });
 
 ShipperSchema.statics = {
-    findAll: function(cb) {
-        return this.find()
+    findAll: function(conditions, cb) {
+        return this.find(conditions)
             .populate({
                 path: 'plant',
                 select: 'name'

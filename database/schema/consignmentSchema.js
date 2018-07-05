@@ -2,6 +2,10 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var ConsignmentSchema = new Schema({
+    no: {
+        type: String,
+        default: new Date().getTime() + Math.floor(Math.random()*100000)
+    },
     cargo: Schema.Types.Mixed,    // 和 {} 等价
     price: Number,
     status: {

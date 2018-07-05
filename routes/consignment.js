@@ -2,14 +2,31 @@ var express = require('express');
 var router = express.Router();
 var Consignment = require('../database/model/consignmentModel');
 router.route('/').get(function(req, res) {
-    // 加盟商子公司下拉数据
-    Consignment.findAll(function (err, docs) {
-        if(err) {
-            res.status(500).json({err: err.message});
-        } else {
-            res.render('consignment', { pid: 2, breadcrumb: ['基础资料', '运单列表'], consignment: docs});
-        }
-    })
+    var search = req.query.search;
+    if(!search) {
+        Consignment.findAll(function (err, docs) {
+            if(err) {
+                res.status(500).json({err: err.message});
+            } else {
+                res.render('consignment', { pid: 2, subid: 21, breadcrumb: ['基础资料', '运单列表'], consignment: docs});
+            }
+        })
+    } else {
+        var reg = new RegExp(search, 'i')
+        Consignment.findAll(function (err, docs) {
+            if(err) {
+                res.status(500).json({err: err.message});
+            } else {
+                var order = [];
+                for(var i = 0; i < docs.length; ++i) {
+                    if(reg.test(docs[i].consigner.companyName) || reg.test(docs[i].consignee.companyName)) {
+                        order.push(docs[i]);
+                    }
+                }
+                res.render('consignment', { pid: 2, subid: 21, breadcrumb: ['基础资料', '运单列表'], consignment: order});
+            }
+        })
+    }
 })
 
 router.get('/:name', function(req, res, next) {

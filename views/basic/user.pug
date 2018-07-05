@@ -1,8 +1,12 @@
 extends ../layout
 
 block content
-    div
+    .tableHead
         button.showAdd.btn.btn-primary 添加
+        form#search
+            .input-group
+                input.form-control(type="text", name="search")
+                span.search.input-group-addon 查询
     .table-responsive
         table.table.table-bordered
             thead

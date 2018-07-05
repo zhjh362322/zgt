@@ -43,22 +43,25 @@ html
                         .menu-text
                             a 基础资料
                         ul.menu-list
-                            li(class=subid == 11 ? 'active' : '')
-                                a(href="/basic/user") 用户列表
-                            li(class=subid == 12 ? 'active' : '')
-                                a(href="/basic/company") 子公司
-                            li(class=subid == 13 ? 'active' : '')
-                                a(href="/basic/plant") 加盟商
-                            li(class=subid == 14 ? 'active' : '')
-                                a(href="/basic/shipper") 客户
-                            li(class=subid == 15 ? 'active' : '')
-                                a(href="/basic/quotation") 线路报价
+                            li(class=subid == 11 ? 'active' : '', data-menu="11")
+                                a 用户列表
+                            li(class=subid == 12 ? 'active' : '', data-menu="12")
+                                a 子公司
+                            li(class=subid == 13 ? 'active' : '', data-menu="13")
+                                a 加盟商
+                            li(class=subid == 14 ? 'active' : '', data-menu="14")
+                                a 客户
+                            li(class=subid == 15 ? 'active' : '', data-menu="15")
+                                a 线路报价
                     li.order(class=pid == 2 ? 'active' : '')
                         .menu-block
                         .menu-icon
                             icon.glyphicon.glyphicon-th-list
                         .menu-text
-                            a(href="/consignment") 运单列表
+                            a 运单管理
+                        ul.menu-list
+                            li(class=subid == 21 ? 'active' : '', data-menu="21")
+                                a 运单列表
             .main-container
                 - if (breadcrumb)
                     ol.breadcrumb

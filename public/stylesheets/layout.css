@@ -89,6 +89,9 @@ body {
     width: 240px;
     background-color: #17232C;
 }
+.sidebar-menu a {
+    text-decoration: none;
+}
 .sidebar-menu ul {
     padding: 0;
     list-style: none;
@@ -100,6 +103,9 @@ body {
 .sidebar-menu ul li {
     border-top: 1px solid #17232C;
     background-color: #1C2B36;
+}
+.sidebar-menu ul li:hover {
+    cursor: pointer;
 }
 .sidebar-menu ul ul li {
     padding: 9px 45px;
@@ -118,7 +124,7 @@ body {
 .basic .menu-block {
     background-color: #2BAAB1;
 }
-.sidebar-menu .order .menu-block {
+.order .menu-block {
     background-color: #7266BA;
 }
 /* 图标和文字设置 */
@@ -176,6 +182,7 @@ body {
 
 /* 宽度小于768px时 */
 @media (max-width: 768px) {
+    /* 顶部导航 */
     .brand {
         left: 50%;
         margin-left: -21px;
@@ -186,6 +193,8 @@ body {
     .userinfo {
         right: 5px;
     }
+
+
     /* 右侧菜单 */
     .menu-text {
         display: none;

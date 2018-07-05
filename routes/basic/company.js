@@ -5,14 +5,26 @@ var Plant = require('../../database/model/plantModel');
 var User = require('../../database/model/userModel');
 // 新增和列表
 router.route('/').get(function(req, res) {
-    // 展示用户列表
-    Company.find(function(err, docs) {
-        if(err) {
-            res.status(500).json({err: '网络错误'})
-        } else {
-            res.render('basic/company', { pid: 1, subid: 12, breadcrumb: ['基础资料', '子公司'], company: docs });
-        }
-    })
+    var search = req.query.search;
+    if(!search) {
+        Company.find(function(err, docs) {
+            if(err) {
+                res.status(500).json({err: '网络错误'})
+            } else {
+                res.render('basic/company', { pid: 1, subid: 12, breadcrumb: ['基础资料', '子公司'], company: docs });
+            }
+        })
+    } else {
+        var reg = new RegExp(search, 'i')
+        Company.find({$or: [{_id: reg}, {endCity: reg}]}, function(err, docs) {
+            if(err) {
+                res.status(500).json({err: '网络错误'})
+            } else {
+                res.render('basic/company', { pid: 1, subid: 12, breadcrumb: ['基础资料', '子公司'], company: docs });
+            }
+        })
+    }
+
 }).post(function(req, res) {
     // 新增用户
     var formData = req.body;
@@ -40,7 +52,6 @@ router.route('/:name').get(function(req, res) {
     if(opt == 'del' && id) {
         // 删除
         Company.findOne({$and:[{_id: id}, {$or:[{plant: {$ne: []}}, {user: {$ne: []}}]}]}, function(err, doc) {
-            console.log(doc)
             if(err) {
                 res.status(500).json({err: err.message});
             } else if(doc) {

@@ -10,5 +10,7 @@
     margin-bottom: 10px;
 }
 #search {
-    float: right;
+    display: inline-block;
+    vertical-align: middle;
+    width: 200px;
 }
