@@ -42,8 +42,8 @@ ConsignmentSchema.statics = {
             .sort({createdAt: -1})
             .exec(cb)
     },
-    findAll: function(cb) {
-        return this.find()
+    findAll: function(conditions, cb) {
+        return this.find(conditions)
             .populate([{
                 path: 'consigner',
                 select: 'companyName contacts cellphone address'

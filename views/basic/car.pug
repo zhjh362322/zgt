@@ -1,0 +1,100 @@
+extends ../layout
+block content
+    .tableHead
+        button.showAdd.btn.btn-primary 添加
+        form#search
+            .input-group
+                input.form-control(type="text", name="search")
+                span.search.input-group-addon 查询
+    .table-responsive
+        table.table.table-bordered
+            thead
+                tr
+                    th #
+                    th 车牌号码
+                    th 司机
+                    th 司机电话
+                    th 所属加盟商
+                    th 车型
+                    th 可载重量
+                    th 可载体积
+                    th 车辆自重
+                    th 是否停用
+                    th(colspan="2") 操作
+            tbody
+                each item, index in car
+                    tr
+                        td #{index + 1}
+                        td #{item.carNo}
+                        td #{item.driver}
+                        td #{item.phone}
+                        td #{item.plant.name}
+                        - if (item.type == 0)
+                            td 13.5 挂车
+                        - else if (item.type == 1)
+                            td 4.5 小车
+                        td #{item.weight}
+                        td #{item.volume}
+                        td #{item.deadweight}
+                        - if (item.status)
+                            td 启用
+                        - else
+                            td 停用
+                        td
+                            a.del(data-id=item._id) 删除
+                        td
+                            a.mod(data-id=item._id) 修改
+
+    #carModal.modal.fade
+        .modal-dialog
+            .modal-content
+                .modal-header
+                    button.close(data-dismiss="modal") &times;
+                    .modal-title 新增车辆
+                .modal-body
+                    form#car.form-horizontal
+                        input(type="hidden", name="id")
+                        .form-group
+                            label.col-sm-2.control-label 车牌号码
+                            .col-sm-10
+                                input.form-control(type="text", name="carNo")
+                        .form-group
+                            label.col-sm-2.control-label 司机
+                            .col-sm-10
+                                input.form-control(type="text", name="driver")
+                        .form-group
+                            label.col-sm-2.control-label 司机电话
+                            .col-sm-10
+                                input.form-control(type="text", name="phone")
+                        .form-group
+                            label.control-label.col-sm-2 隶属加盟商
+                            .col-sm-10
+                                select.form-control.plantSelect(name="plant")
+                        .form-group
+                            label.col-sm-2.control-label 车型
+                            .col-sm-10
+                                select.form-control(name="type")
+                                    option(value="0") 13.5 挂车
+                                    option(value="1") 4.5 小车
+                        .form-group
+                            label.col-sm-2.control-label 可载重量
+                            .col-sm-10
+                                input.form-control(type="text", name="weight")
+                        .form-group
+                            label.col-sm-2.control-label 可载体积
+                            .col-sm-10
+                                input.form-control(type="text", name="volume")
+                        .form-group
+                            label.col-sm-2.control-label 车辆自重
+                            .col-sm-10
+                                input.form-control(type="text", name="deadweight")
+                        .form-group
+                            label.col-sm-2.control-label 是否停用
+                            .col-sm-10
+                                select.form-control(name="status")
+                                    option(value="1") 启用
+                                    option(value="0") 停用
+                .modal-footer
+                    button.btn.btn-default(data-dismiss="modal") 关闭
+                    button.save.btn.btn-primary 保存
+    script(src="/javascripts/basic/car.js")

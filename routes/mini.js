@@ -44,6 +44,7 @@ router.post('/login', function(req, res, next) {
 })
 router.get('/quotation', function(req, res, next) {
     var q = req.query;
+
     if(q.from === 'mini') {
         var condition = {};
         if(q["startCity"]) {

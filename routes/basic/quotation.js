@@ -18,7 +18,7 @@ router.route('/').get(function (req, res) {
         })
     } else {
         var reg = new RegExp(search, 'i')
-        Quotation.findAll({$or: [{serial: reg}, {name: reg}]}, function (err, docs) {
+        Quotation.findAll({$or: [{startCity: reg}, {endCity: reg}]}, function (err, docs) {
             if (err) {
                 res.status(500).json({err: '网络错误'})
             } else {
@@ -86,7 +86,7 @@ router.route('/:name').get(function (req, res) {
             var oldname = config.quotationImgPath + file.filename;
             var newname = config.quotationImgPath + formData.plant + "." + fileFormat[fileFormat.length - 1];
             fs.renameSync(oldname, newname);
-            formData['headimg'] = newname;
+            formData['headimg'] = config.url + '/uploads/quotation/' + formData.plant + "." + fileFormat[fileFormat.length - 1];
         }
         Quotation.update({_id: formData.id}, formData, function (err, doc) {
             if (err) {

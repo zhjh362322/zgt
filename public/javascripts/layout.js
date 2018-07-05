@@ -46,7 +46,13 @@ $(function() {
             window.location.href = '/basic/shipper'
         else if(menuid == 15)
             window.location.href = '/basic/quotation'
-        else
+        else if(menuid == 16)
+            window.location.href = '/basic/car'
+        else if(menuid == 21)
             window.location.href = '/consignment'
+        else if(menuid == 31)
+            window.location.href = '/upload/headpic'
+        else if(menuid == 32)
+            window.location.href = '/upload/swiper'
     })
 })

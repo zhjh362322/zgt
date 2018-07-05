@@ -16,7 +16,7 @@ router.route('/').get(function(req, res) {
         })
     } else {
         var reg = new RegExp(search, 'i')
-        Company.find({$or: [{_id: reg}, {endCity: reg}]}, function(err, docs) {
+        Company.find({$or: [{serial: reg}, {name: reg}]}, function(err, docs) {
             if(err) {
                 res.status(500).json({err: '网络错误'})
             } else {
@@ -38,7 +38,7 @@ router.route('/').get(function(req, res) {
             // 新增
             var company = new Company(formData);
             company.save(function(err, doc) {
-                var rst = docs.push(doc);
+                // var rst = docs.push(doc);
                 res.send(doc)
             });
         }

@@ -53,6 +53,8 @@ html
                                 a 客户
                             li(class=subid == 15 ? 'active' : '', data-menu="15")
                                 a 线路报价
+                            li(class=subid == 16 ? 'active' : '', data-menu="16")
+                                a 车辆资源
                     li.order(class=pid == 2 ? 'active' : '')
                         .menu-block
                         .menu-icon
@@ -62,6 +64,17 @@ html
                         ul.menu-list
                             li(class=subid == 21 ? 'active' : '', data-menu="21")
                                 a 运单列表
+                    li.upload(class=pid == 3 ? 'active' : '')
+                        .menu-block
+                        .menu-icon
+                            icon.glyphicon.glyphicon-th-list
+                        .menu-text
+                            a 上传小程序图片
+                        ul.menu-list
+                            li(class=subid == 31 ? 'active' : '', data-menu="31")
+                                a 线路轮播图
+                            li(class=subid == 32 ? 'active' : '', data-menu="32")
+                                a 运单查询头图
             .main-container
                 - if (breadcrumb)
                     ol.breadcrumb

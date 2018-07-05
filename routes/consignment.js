@@ -13,7 +13,7 @@ router.route('/').get(function(req, res) {
         })
     } else {
         var reg = new RegExp(search, 'i')
-        Consignment.findAll(function (err, docs) {
+        Consignment.findAll({no: reg}, function (err, docs) {
             if(err) {
                 res.status(500).json({err: err.message});
             } else {
