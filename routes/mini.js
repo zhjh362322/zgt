@@ -18,6 +18,8 @@ router.post('/login', function(req, res, next) {
         User.findByUid(data.uid, function(err, doc) {
             if(err) {
                 res.status(500).json({code: -1, msg: '网络出错'})
+                console.log(doc)
+                console.log(newPwd)
             } else if(doc && doc.password == newPwd && doc.status == 1) {
                 // 1 子公司； 2 加盟商； 0 管理员
                 if(doc.level == 1) {
@@ -52,7 +54,6 @@ router.get('/quotation', function(req, res, next) {
             var endCity = new RegExp(q.endCity)
             condition.endCity = endCity;
         }
-        console.log(condition)
         Quotation.find(condition, function(err, docs) {
             if(err) {
                 res.status(500).json({err: err.message});
@@ -61,7 +62,7 @@ router.get('/quotation', function(req, res, next) {
             }
         })
     } else {
-        next(err);
+        res.send({msg: '参数错误'});
     }
 })
 

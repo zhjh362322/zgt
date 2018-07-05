@@ -35,8 +35,10 @@ app.use(function(req, res, next) {
 });
 app.use(function(req, res, next) {
     var url = req.originalUrl;
-    if(!req.session.user && url != '/users/login' && url != '/') {
-        return res.redirect('/');
+    if(url.search("/mini") == -1) {
+        if(!req.session.user && url != '/users/login' && url != '/') {
+            return res.redirect('/');
+        }
     }
     next();
 });

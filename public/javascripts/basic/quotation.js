@@ -26,7 +26,7 @@ $(function() {
     })
     $('.save').click(function(e) {
         var fm = new FormData($('#quotation')[0]);
-        // var img = $('.ad')[0].files[0];
+        // var imgs = $('.ad')[0].files;
         // 这里要个验证过程 ...
         var url = '/basic/quotation';
         var rules = {};
@@ -66,7 +66,7 @@ $(function() {
                 contentType:false,
                 success: function(data, status) {
                     if(status === 'success' && data.code == 304) {
-                        alert(data.msg)
+                        console.log(data)
                     } else {
                         window.location.reload();
                     }

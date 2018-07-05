@@ -33,6 +33,10 @@ router.route('/').get(function(req, res, next) {
         } else if(docs.length > 0) {
             res.status(200).json({msg: '帐号已存在'})
         } else {
+            var md5 = crypto.createHash('md5');
+            var pwd = formData.password ? formData.password : '';
+            var newPwd = md5.update(pwd).digest('hex');
+            formData.password = newPwd;
             var user = new User(formData);
             if(formData.level == 1) {
                 user.owner.company = formData.owner;
@@ -52,6 +56,14 @@ router.route('/').get(function(req, res, next) {
                         res.status(200).json(doc);
                     })
                 });
+            } else {
+                user.save(function(err, doc) {
+                    if(err) {
+                        res.status(500).json({err: err.message});
+                    } else {
+                        res.status(200).json(doc);
+                    }
+                })
             }
         }
     })
