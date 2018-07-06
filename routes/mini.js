@@ -55,7 +55,7 @@ router.get('/quotation', function(req, res, next) {
             var endCity = new RegExp(q.endCity)
             condition.endCity = endCity;
         }
-        Quotation.find(condition, function(err, docs) {
+        Quotation.findAll(condition, function(err, docs) {
             if(err) {
                 res.status(500).json({err: err.message});
             } else {

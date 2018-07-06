@@ -8,7 +8,7 @@ router.route('/').get(function(req, res) {
             if(err) {
                 res.status(500).json({err: err.message});
             } else {
-                res.render('consignment', { pid: 2, subid: 21, breadcrumb: ['基础资料', '运单列表'], consignment: docs});
+                res.render('consignment', { pid: 2, subid: 21, breadcrumb: ['运单管理', '运单列表'], consignment: docs});
             }
         })
     } else {

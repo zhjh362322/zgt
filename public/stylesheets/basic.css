@@ -17,19 +17,19 @@ body {
     vertical-align: middle;
     width: 200px;
 }
-#upload input {
+.upload input {
     opacity: 0;
     width: 0;
     height: 0;
     cursor: pointer
 }
-#headpic label {
+.upload label {
     width: 150px;
     line-height: 30px;
     text-align: center;
     background-color: #FFF;
     cursor: pointer;
 }
-#upload label:hover {
+.upload label:hover {
     background-color: #737C8E;
 }

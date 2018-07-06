@@ -129,4 +129,18 @@ $(function() {
         }
         $('label.error').hide();
     })
+
+    $('.plantSelect').change(function(e) {
+        var id = $(this)[0].value;
+        $.get('/basic/quotation/car?id=' + id, function(data, status) {
+            if(status === 'success') {
+                var options = [];
+                $.each(data, function(i, item) {
+                    var option = '<option value="' + item._id + '">' + item.carNo + '</option>'
+                    options.push(option);
+                })
+                $('.carSelect').html(options.join(''))
+            }
+        })
+    })
 })

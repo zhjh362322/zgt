@@ -22,6 +22,10 @@ var PlantSchema = new Schema({
     quotation: [{
         type: Schema.Types.ObjectId,
         ref: 'Quotation'
+    }],
+    car: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Car'
     }]
 }, {
     timestamps: true

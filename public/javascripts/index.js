@@ -5,7 +5,6 @@ $(function() {
         $.each(formData, function(i, field) {
             data[this.name] = this.value;
         })
-        console.log(data)
         $.ajax({
             url: '/users/login',
             type: 'POST',

@@ -1,9 +1,12 @@
 $(function() {
-    $('.sidebar-menu > ul > li').mouseover(function() {
-        $(this).addClass('active')
-    })
-    $('.sidebar-menu > ul > li').mouseout(function() {
-        $(this).removeClass('active')
+    // $('.sidebar-menu > ul > li').mouseover(function() {
+    //     $(this).addClass('active')
+    // })
+    // $('.sidebar-menu > ul > li').mouseout(function() {
+    //     $(this).removeClass('active')
+    // })
+    $('.sidebar-menu > ul > li').click(function() {
+        $(this).toggleClass('active')
     })
     $('.basic').mouseover(function(e) {
         $('.basic .menu-text a').css('color', '#FFF')

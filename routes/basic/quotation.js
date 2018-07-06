@@ -4,7 +4,8 @@ var router = express.Router();
 var config = require('../../config/config');
 var Quotation = require('../../database/model/quotationModel');
 var Plant = require('../../database/model/plantModel');
-var upload = require('../../utils/multerUtil');
+var Car = require('../../database/model/carModel');
+var upload = require('../../utils/multerUtil')(config.quotationImgPath);
 // 新增和列表
 router.route('/').get(function (req, res) {
     var search = req.query.search;
@@ -73,6 +74,14 @@ router.route('/:name').get(function (req, res) {
                 res.status(500).json({err: err.message});
             } else {
                 res.send({msg: 'del success'})
+            }
+        })
+    } else if(name == 'car' && id) {
+        Car.find({plant: id}, 'carNo', function(err, docs) {
+            if (err) {
+                res.status(500).json({err: err.message});
+            } else {
+                res.send(docs);
             }
         })
     }

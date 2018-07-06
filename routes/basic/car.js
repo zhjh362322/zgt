@@ -37,7 +37,11 @@ router.route('/').get(function(req, res) {
             // 新增
             var car = new Car(formData);
             car.save(function(err, doc) {
-                res.send(doc)
+                Plant.update({"_id": formData.plant}, {
+                    $push: {car: doc._id}
+                }, function (err, docs) {
+                    res.status(200).json(doc);
+                })
             });
         }
     })
