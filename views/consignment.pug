@@ -1,36 +1,41 @@
 extends layout
 block content
-    div
-    table.table.table-bordered
-        thead
-            tr
-                th #
-                th 单号
-                th 发货人
-                th 收货人
-                th 货物名称
-                th 运费
-                th 状态
-                th 制单人
-                th 备注
-                th(colspan="2") 操作
-        tbody
-            each item, index in consignment
+    .tableHead
+        form#search
+            .input-group
+                input.form-control(type="text", name="search")
+                span.search.input-group-addon 查询
+    .table-responsive
+        table.table.table-bordered
+            thead
                 tr
-                    td #{index + 1}
-                    td #{item._id}
-                    td #{item.consigner.companyName}
-                    td #{item.consignee.companyName}
-                    td #{item.cargo.cargoName}
-                    td #{item.price}
-                    - if(item.status === 0)
-                        td 已下单
-                    - else
-                        td 已签收
-                    td #{item.uid.name}
-                    td #{item.note}
-                    td
-                        a.sign(data-id=item._id) 签收
-                    td
-                        a.unsign(data-id=item._id) 取消签收
+                    th #
+                    th 单号
+                    th 发货人
+                    th 收货人
+                    th 货物名称
+                    th 运费
+                    th 状态
+                    th 制单人
+                    th 备注
+                    th(colspan="2") 操作
+            tbody
+                each item, index in consignment
+                    tr
+                        td #{index + 1}
+                        td #{item.no}
+                        td #{item.consigner.companyName}
+                        td #{item.consignee.companyName}
+                        td #{item.cargo.cargoName}
+                        td #{item.price}
+                        - if(item.status === 0)
+                            td 已下单
+                        - else
+                            td 已签收
+                        td #{item.uid.name}
+                        td #{item.note}
+                        td
+                            a.sign(data-id=item._id) 签收
+                        td
+                            a.unsign(data-id=item._id) 取消签收
     script(src="/javascripts/consignment.js")

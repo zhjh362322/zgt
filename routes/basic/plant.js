@@ -4,13 +4,26 @@ var Plant = require('../../database/model/plantModel');
 var Company = require('../../database/model/companyModel');
 var User = require('../../database/model/userModel');
 router.route('/').get(function(req, res) {
-    Plant.findAll(function(err, docs) {
-        if(err) {
-            res.status(500).json({err: '网络错误'})
-        } else {
-            res.render('basic/plant', { pid: 1, subid: 13, breadcrumb: ['基础资料', '加盟商'], plant: docs });
-        }
-    })
+    var search = req.query.search;
+    if(!search) {
+        Plant.findAll(function(err, docs) {
+            if(err) {
+                res.status(500).json({err: '网络错误'})
+            } else {
+                res.render('basic/plant', { pid: 1, subid: 13, breadcrumb: ['基础资料', '加盟商'], plant: docs });
+            }
+        })
+    } else {
+        var reg = new RegExp(search, 'i')
+        Plant.findAll({$or: [{serial: reg}, {name: reg}]}, function(err, docs) {
+            if(err) {
+                res.status(500).json({err: '网络错误'})
+            } else {
+                res.render('basic/plant', { pid: 1, subid: 13, breadcrumb: ['基础资料', '加盟商'], plant: docs });
+            }
+        })
+    }
+
 }).post(function(req, res) {
     var formData = req.body;
     Plant.find({serial: formData.serial}, function(err, docs) {
@@ -33,7 +46,6 @@ router.route('/').get(function(req, res) {
 router.route('/:name').get(function(req, res) {
     var id = req.query['id'];
     var name = req.params.name;
-    console.log(name)
     if(name == 'add') {
         Company.find(null, 'name', function (err, docs) {
             if(err) {
@@ -48,7 +60,6 @@ router.route('/:name').get(function(req, res) {
         })
     } else if(name == 'del' && id) {
         Plant.findOne({$and: [{_id: id}, {$or: [{shipper: {$ne: []}}, {user: {$ne: []}}, {quotation: {$ne: []}}]}]}, function(err, doc) {
-            console.log(doc)
             if(err) {
                 res.status(500).json({err: err.message});
             } else if(doc) {

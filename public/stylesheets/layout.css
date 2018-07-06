@@ -1,6 +1,3 @@
-body {
-    background-color: #F5F5F5;
-}
 .top-nav {
     position: fixed;
     top: 0;
@@ -43,7 +40,7 @@ body {
 .userinfo {
     position: absolute;
     top: 50%;
-    right: 60px;
+    right: 10px;
     margin-top: -17px;
     display: inline-block;
 }
@@ -55,13 +52,30 @@ body {
 }
 .userinfo .userinfodrop {
     display: none;
-    padding: 5px;
+    padding: 15px 15px 0 15px;
     position: absolute;
-    top: 45px;
-    width: 200px;
-    height: 100px;
+    top: 44px;
+    right: 0;
+    width: 250px;
     background-color: #FFF;
     list-style: none;
+    border-top: 0;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+.userinfodrop li {
+    margin-bottom: 15px;
+}
+.userinfodrop li span:last-child {
+    float: right;
+}
+.userinfodrop a {
+    display: block;
+    padding-top: 15px;
+    color: #4D555D;
+    font-size: 12px;
+    text-decoration: none;
+    border-top: 1px solid #F5F5F5;
 }
 /* 左侧菜单 */
 .sidebar-menu {
@@ -71,6 +85,9 @@ body {
     bottom: 0;
     width: 240px;
     background-color: #17232C;
+}
+.sidebar-menu a {
+    text-decoration: none;
 }
 .sidebar-menu ul {
     padding: 0;
@@ -83,6 +100,9 @@ body {
 .sidebar-menu ul li {
     border-top: 1px solid #17232C;
     background-color: #1C2B36;
+}
+.sidebar-menu ul li:hover {
+    cursor: pointer;
 }
 .sidebar-menu ul ul li {
     padding: 9px 45px;
@@ -101,7 +121,7 @@ body {
 .basic .menu-block {
     background-color: #2BAAB1;
 }
-.sidebar-menu .order .menu-block {
+.order .menu-block {
     background-color: #7266BA;
 }
 /* 图标和文字设置 */
@@ -116,6 +136,7 @@ body {
     display: inline-block;
     line-height: 39px;
 }
+
 /* active效果 */
 .sidebar-menu li.active .menu-text a, .sidebar-menu li.active > a {
     color: #FFF;
@@ -135,10 +156,31 @@ body {
 
 
 
+/* 点击头部三横时 */
+.sidebar-menu.collapseMenu {
+    width: 46px;
+}
+.sidebar-menu.collapseMenu .menu-text {
+    display: none;
+    line-height: 39px;
+}
+.sidebar-menu.collapseMenu .basic {
+    position: relative;
+}
+.sidebar-menu.collapseMenu .menu-list {
+    position: absolute;
+    left: 45px;
+    top: 0;
+    width: 240px;
+}
+.main-container.collapseMenu {
+    margin-left: 45px;
+}
 
 
-
+/* 宽度小于768px时 */
 @media (max-width: 768px) {
+    /* 顶部导航 */
     .brand {
         left: 50%;
         margin-left: -21px;
@@ -148,5 +190,31 @@ body {
     }
     .userinfo {
         right: 5px;
+    }
+
+
+    /* 右侧菜单 */
+    .menu-text {
+        display: none;
+        line-height: 39px;
+    }
+    .sidebar-menu {
+        width: 46px;
+    }
+    .basic {
+        position: relative;
+    }
+    .menu-list {
+        position: absolute;
+        left: 45px;
+        top: 0;
+        width: 240px;
+    }
+    .main-container {
+        margin-left: 45px;
+    }
+    /* 避免挡住菜单 */
+    .input-group {
+        z-index: -1;
     }
 }

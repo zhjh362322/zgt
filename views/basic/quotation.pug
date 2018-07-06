@@ -1,38 +1,42 @@
 extends ../layout
 
 block content
-    div
-        //a(href="../basicData/plant") 新增
+    .tableHead
         button.showAdd.btn.btn-primary 添加
-    table.table.table-bordered
-        thead
-            tr
-                th #
-                th 线路名称
-                th 始发城市
-                th 到货城市
-                th 隶属加盟商
-                th 联系人
-                th 电话
-                th 价格
-                th 时效
-                th(colspan="2") 操作
-        tbody
-            each item, index in quotation
+        form#search
+            .input-group
+                input.form-control(type="text", name="search")
+                span.search.input-group-addon 查询
+    .table-responsive
+        table.table.table-bordered
+            thead
                 tr
-                    td #{index + 1}
-                    td #{item.name}
-                    td #{item.startCity}
-                    td #{item.endCity}
-                    td #{item.plant.name}
-                    td #{item.contacts}
-                    td #{item.cellphone}
-                    td #{item.price}
-                    td #{item.time}
-                    td
-                        a.del(data-id=item._id) 删除
-                    td
-                        a.mod(data-id=item._id) 修改
+                    th #
+                    th 线路名称
+                    th 始发城市
+                    th 到货城市
+                    th 隶属加盟商
+                    th 联系人
+                    th 电话
+                    th 价格
+                    th 时效
+                    th(colspan="2") 操作
+            tbody
+                each item, index in quotation
+                    tr
+                        td #{index + 1}
+                        td #{item.name}
+                        td #{item.startCity}
+                        td #{item.endCity}
+                        td #{item.plant.name}
+                        td #{item.contacts}
+                        td #{item.cellphone}
+                        td #{item.price}
+                        td #{item.time}
+                        td
+                            a.del(data-id=item._id) 删除
+                        td
+                            a.mod(data-id=item._id) 修改
     #quotationModal.modal.fade
         .modal-dialog
             .modal-content
@@ -78,6 +82,10 @@ block content
                             label.control-label.col-sm-2 时效
                             .col-sm-10
                                 input.form-control(type="number", name="time")
+                        div.form-group
+                            label.control-label.col-sm-2 车辆
+                            .col-sm-10
+                                select.form-control.carSelect(name="car")
                 .modal-footer
                     button.btn.btn-default(data-dismiss="modal") 关闭
                     button.save.btn.btn-primary 保存

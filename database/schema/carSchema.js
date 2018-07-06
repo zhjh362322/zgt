@@ -1,30 +1,32 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var ShipperSchema = new Schema({
-    contacts: String,
-    cellphone: String,
-    companyName: String,
-    address: String,
-    type: Number,
+var CarSchema = new Schema({
+    carNo: String,
+    driver: String,
+    phone: Number,
     plant: {
         type: Schema.Types.ObjectId,
         ref: 'Plant'
-    }
+    },
+    type: Number,
+    weight: Number,
+    volume: Number,
+    deadweight: Number,
+    status: Number
 }, {
     timestamps: true
 });
 
-ShipperSchema.statics = {
+CarSchema.statics = {
     findAll: function(conditions, cb) {
         return this.find(conditions)
             .populate({
                 path: 'plant',
                 select: 'name'
             })
-            .exec(cb)
+            .exec(cb);
     }
 }
 
-
-module.exports = ShipperSchema;
+module.exports = CarSchema;

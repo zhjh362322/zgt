@@ -13,18 +13,24 @@ var QuotationSchema = new Schema({
     contacts: String,
     cellphone: String,
     price: Number,
-    time: Number
+    time: Number,
+    car: {
+        type: Schema.Types.ObjectId,
+        ref: 'Car'
+    }
 }, {
     timestamps: true
 });
 
 QuotationSchema.statics = {
-    findAll: function(cb) {
-        return this.find()
-            .populate({
+    findAll: function(conditions, cb) {
+        return this.find(conditions)
+            .populate([{
                 path: 'plant',
                 select: 'name'
-            })
+            }, {
+                path: 'car'
+            }])
             .exec(cb);
     }
 }

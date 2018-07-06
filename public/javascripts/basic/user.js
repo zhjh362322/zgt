@@ -20,7 +20,14 @@ $(function() {
         $('#user input').val('');
         $('#userModal').modal('show');
     })
-
+    $('.search').click(function(e) {
+        var formData = $('#search').serializeArray();
+        var data = {};
+        $.each(formData, function(i, field) {
+            data[this.name] = this.value;
+        })
+        window.location.href = '/basic/user?search=' + data.search;
+    })
     $('.save').click(function(e) {
         var formData = $('#user').serializeArray();
         // 这里要个验证过程 ...
@@ -104,5 +111,6 @@ $(function() {
                 $('.owner').removeClass('active');
             }
         })
+        $('label.error').hide();
     })
 })

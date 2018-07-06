@@ -1,18 +1,23 @@
 $(function() {
-    // -----------------------------------------company---------------------------------
+    // -----------------------------------------plant---------------------------------
+    // 定义一个参数，避免每次点新增都要请求一次
+    var _options;
+
     function valContent(){
-        return $("#company").validate({
+        return $("#car").validate({
             errorLabelContainer: $(".error"),
             rules: {
-                serial: 'required',
-                name: 'required'
+                carNo: 'required',
+                driver: 'required',
+                plant: 'required',
+                status: 'required'
             }
         }).form();
     }
     // 表头新增按钮
     $('.showAdd').click(function(e) {
-        $('#company input').val('');
-        $('#companyModal').modal('show');
+        $('#car input').val('');
+        $('#carModal').modal('show');
     })
     $('.search').click(function(e) {
         var formData = $('#search').serializeArray();
@@ -20,16 +25,16 @@ $(function() {
         $.each(formData, function(i, field) {
             data[this.name] = this.value;
         })
-        window.location.href = '/basic/company?search=' + data.search;
+        window.location.href = '/basic/car?search=' + data.search;
     })
     $('.save').click(function(e) {
-        var formData = $('#company').serializeArray();
+        var formData = $('#car').serializeArray();
         // 这里要个验证过程 ...
         var data = {};
         $.each(formData, function(i, field) {
             data[this.name] = this.value;
         })
-        var url = '/basic/company';
+        var url = '/basic/car';
         if(data.id) {
             url += '/mod'
         }
@@ -50,11 +55,12 @@ $(function() {
                 }
             })
         }
+
     })
 
     $('.del').click(function(e) {
         var id = $(this)[0].dataset.id;
-        $.get('/basic/company/del?id=' + id, function(data, status) {
+        $.get('/basic/car/del?id=' + id, function(data, status) {
             if(status === 'success' && data["msg"]) {
                 alert(data.msg)
             }
@@ -64,9 +70,11 @@ $(function() {
 
     $('.mod').click(function(e) {
         var id = $(this)[0].dataset.id;
-        $.get('/basic/company/mod?id=' + id, function(data, status) {
+        $('.plantSelect').attr('disabled', true)
+        $.get('/basic/car/mod?id=' + id, function(data, status) {
             if(status === 'success') {
-                var ipts = $('#company input');
+                var ipts = $('#car input');
+                var selects = $('#car select');
                 $.each(ipts, function(i, field) {
                     // form表单中有name就_id的， 新增不了
                     if(field.name === 'id') {
@@ -75,13 +83,28 @@ $(function() {
                         $(field).val(data[field.name]);
                     }
                 })
-
-                $('#companyModal').modal('show');
+                $.each(selects, function(i, field) {
+                    $(field).val(data[field.name])
+                })
+                $('#carModal').modal('show');
             }
         })
     })
-
-    $('#companyModal').on('show.bs.modal', function() {
+    // 打开模态框加载公司下拉数据  --修改时selected值与人加载先后不确定？？？
+    $('#carModal').on('show.bs.modal', function() {
+        if(!_options) {
+            $.get('/basic/car/add', function(data, status) {
+                if(status === 'success') {
+                    var options = [];
+                    $.each(data, function(i, item) {
+                        var option = '<option value="' + item._id + '">' + item.name + '</option>'
+                        options.push(option);
+                    })
+                    _options = options;
+                    $('.plantSelect').html(options.join(''))
+                }
+            })
+        }
         $('label.error').hide();
     })
 })

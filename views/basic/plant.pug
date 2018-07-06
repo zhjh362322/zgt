@@ -1,37 +1,41 @@
 extends ../layout
 
 block content
-    div
-        //a(href="../basicData/plant") 新增
+    .tableHead
         button.showAdd.btn.btn-primary 添加
-    table.table.table-bordered
-        thead
-            tr
-                th #
-                th 编码
-                th 中文名
-                th 加盟商类型
-                th 所属子公司
-                th 出险次数
-                th 运单数量
-                th(colspan="2") 操作
-        tbody
-            each item, index in plant
+        form#search
+            .input-group
+                input.form-control(type="text", name="search")
+                span.search.input-group-addon 查询
+    .table-responsive
+        table.table.table-bordered
+            thead
                 tr
-                    td #{index + 1}
-                    td #{item.serial}
-                    td #{item.name}
-                    - if(item.type)
-                        td 专线
-                    - else
-                        td 三方
-                    td #{item.company.name}
-                    td #{item.claim}
-                    td #{item.orderNum}
-                    td
-                        a.del(data-id=item._id) 删除
-                    td
-                        a.mod(data-id=item._id) 修改
+                    th #
+                    th 编码
+                    th 中文名
+                    th 加盟商类型
+                    th 所属子公司
+                    th 出险次数
+                    th 运单数量
+                    th(colspan="2") 操作
+            tbody
+                each item, index in plant
+                    tr
+                        td #{index + 1}
+                        td #{item.serial}
+                        td #{item.name}
+                        - if(item.type)
+                            td 专线
+                        - else
+                            td 三方
+                        td #{item.company.name}
+                        td #{item.claim}
+                        td #{item.orderNum}
+                        td
+                            a.del(data-id=item._id) 删除
+                        td
+                            a.mod(data-id=item._id) 修改
     #plantModal.modal.fade
         .modal-dialog
             .modal-content

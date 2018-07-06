@@ -1,45 +1,50 @@
 extends ../layout
 
 block content
-    div
+    .tableHead
         button.showAdd.btn.btn-primary 添加
-    table.table.table-bordered
-        thead
-            tr
-                th #
-                th 帐号
-                th 姓名
-                th 邮箱
-                th 电话
-                th 类型
-                th 状态
-                th 所有者
-                th(colspan="2") 操作
-        tbody
-            each item, index in users
+        form#search
+            .input-group
+                input.form-control(type="text", name="search")
+                span.search.input-group-addon 查询
+    .table-responsive
+        table.table.table-bordered
+            thead
                 tr
-                    td #{index + 1}
-                    td #{item.uid}
-                    td #{item.name}
-                    td #{item.email}
-                    td #{item.cellphone}
-                    - if (item.status)
-                        td 启用
-                    - else
-                        td 停用
-                    - if (item.level == 0)
-                        td 管理员
+                    th #
+                    th 帐号
+                    th 姓名
+                    th 邮箱
+                    th 电话
+                    th 类型
+                    th 状态
+                    th 所有者
+                    th(colspan="2") 操作
+            tbody
+                each item, index in users
+                    tr
+                        td #{index + 1}
+                        td #{item.uid}
+                        td #{item.name}
+                        td #{item.email}
+                        td #{item.cellphone}
+                        - if (item.status)
+                            td 启用
+                        - else
+                            td 停用
+                        - if (item.level == 0)
+                            td 管理员
+                            td
+                        - else if(item.level == 1)
+                            td 子公司
+                            td #{item.owner.company.name}
+                        - else
+                            td 加盟商
+                            td #{item.owner.plant.name}
                         td
-                    - else if(item.level == 1)
-                        td 子公司
-                        td #{item.owner.company.name}
-                    - else
-                        td 加盟商
-                        td #{item.owner.plant.name}
-                    td
-                        a.del(data-id=item._id) 删除
-                    td
-                        a.mod(data-id=item._id) 修改
+                            a.del(data-id=item._id) 删除
+                        td
+                            a.mod(data-id=item._id) 修改
     #userModal.modal.fade
         .modal-dialog
             .modal-content

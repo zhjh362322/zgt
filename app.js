@@ -19,7 +19,7 @@ app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(session({
     secret: 'zgt',
     store: new mongoStore({
-        url: 'mongodb://127.0.0.1:27017/zgt',
+        url: config.dburl + config.dbname,
         ttl: 60*60,
         touchAfter: 3600
     })
@@ -35,8 +35,10 @@ app.use(function(req, res, next) {
 });
 app.use(function(req, res, next) {
     var url = req.originalUrl;
-    if(url != '/users/login' && url != '/' && !req.session.user) {
-        return res.redirect('/');
+    if(url.search("/mini") == -1) {
+        if(!req.session.user && url != '/users/login' && url != '/') {
+            return res.redirect('/');
+        }
     }
     next();
 });

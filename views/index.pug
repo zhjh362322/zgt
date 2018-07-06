@@ -1,19 +1,22 @@
 doctype html
 html
     head
+        meta(charset="utf-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1")
         title= title
         link(rel='stylesheet', href='/libs/bootstrap/dist/css/bootstrap.css')
         link(rel='stylesheet', href='/stylesheets/login.css')
-        //script(src="/libs/jquery/dist/jquery.min.js")
-        //script(src="/libs/bootstrap/dist/js/bootstrap.min.js")
     body
         .wrapper
             .sign-in-inner
                 .login-brand
                     strong Login
-                form(method="post", action="/users/login")
+                form#login
                     div.form-group
                         input.form-control(type="text", name="uid", placeholder="用户名")
                     div.form-group
                         input.form-control(type="password", name="password", placeholder="密码")
-                    button.btn.loginbtn(type="submit") 登录
+                    button.btn.loginbtn.submit(type="button") 登录
+        script(src="/libs/jquery/dist/jquery.min.js")
+        script(src="/javascripts/index.js")

@@ -22,13 +22,17 @@ var PlantSchema = new Schema({
     quotation: [{
         type: Schema.Types.ObjectId,
         ref: 'Quotation'
+    }],
+    car: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Car'
     }]
 }, {
     timestamps: true
 });
 PlantSchema.statics = {
-    findAll: function(cb) {
-        return this.find(null, {user: 0, quotation: 0, shipper: 0})
+    findAll: function(conditions, cb) {
+        return this.find(conditions, {user: 0, quotation: 0, shipper: 0})
             .populate({
                 path: 'company',
                 select: 'name'

@@ -4,13 +4,25 @@ var Shipper = require('../../database/model/shipperModel');
 var Plant = require('../../database/model/plantModel');
 var Consignment = require('../../database/model/consignmentModel');
 router.route('/').get(function(req, res) {
-    Shipper.findAll(function(err, docs) {
-        if(err) {
-            res.status(500).json({err: '网络错误'})
-        } else {
-            res.render('basic/shipper', { pid: 1, subid: 14, breadcrumb: ['基础资料', '客户信息'], shipper: docs });
-        }
-    })
+    var search = req.query.search;
+    if(!search) {
+        Shipper.findAll(function(err, docs) {
+            if(err) {
+                res.status(500).json({err: '网络错误'})
+            } else {
+                res.render('basic/shipper', { pid: 1, subid: 14, breadcrumb: ['基础资料', '客户信息'], shipper: docs });
+            }
+        })
+    } else {
+        var reg = new RegExp(search, 'i')
+        Shipper.findAll({$or: [{companyName: reg}, {cellphone: reg}]}, function(err, docs) {
+            if(err) {
+                res.status(500).json({err: '网络错误'})
+            } else {
+                res.render('basic/shipper', { pid: 1, subid: 14, breadcrumb: ['基础资料', '客户信息'], shipper: docs });
+            }
+        })
+    }
 }).post(function(req, res) {
     var formData = req.body;
     var shipper = new Shipper(formData);

@@ -2,6 +2,10 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var ConsignmentSchema = new Schema({
+    no: {
+        type: String,
+        default: 'O' + new Date().getTime() + Math.floor(Math.random()*100000)
+    },
     cargo: Schema.Types.Mixed,    // 和 {} 等价
     price: Number,
     status: {
@@ -38,8 +42,8 @@ ConsignmentSchema.statics = {
             .sort({createdAt: -1})
             .exec(cb)
     },
-    findAll: function(cb) {
-        return this.find()
+    findAll: function(conditions, cb) {
+        return this.find(conditions)
             .populate([{
                 path: 'consigner',
                 select: 'companyName contacts cellphone address'

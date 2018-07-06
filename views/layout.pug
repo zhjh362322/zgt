@@ -1,9 +1,13 @@
 doctype html
 html
     head
+        meta(charset="utf-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1")
         title= title
         link(rel='stylesheet', href='/libs/bootstrap/dist/css/bootstrap.css')
         link(rel='stylesheet', href='/stylesheets/layout.css')
+        link(rel='stylesheet', href='/stylesheets/basic.css')
         block css
         script(src="/libs/jquery/dist/jquery.min.js")
     body
@@ -18,10 +22,16 @@ html
                 .userinfo
                     a
                         image(src="/images/avatar1.png")
-                        //span #{user.name}
                     ul.userinfodrop
-                        //li #{user.uid}
-                        //li #{user.email}
+                        li
+                            span 帐号
+                            span #{user.uid}
+                        li
+                            span 姓名
+                            span #{user.name}
+                        li
+                            span 邮箱
+                            span #{user.email}
                         li
                             a(href="/users/logout") 登出
             aside.sidebar-menu
@@ -33,32 +43,43 @@ html
                         .menu-text
                             a 基础资料
                         ul.menu-list
-                            li(class=subid == 11 ? 'active' : '')
-                                a(href="/basic/user") 用户列表
-                            li(class=subid == 12 ? 'active' : '')
-                                a(href="/basic/company") 子公司
-                            li(class=subid == 13 ? 'active' : '')
-                                a(href="/basic/plant") 加盟商
-                            li(class=subid == 14 ? 'active' : '')
-                                a(href="/basic/shipper") 客户
-                            li(class=subid == 15 ? 'active' : '')
-                                a(href="/basic/quotation") 线路报价
+                            li(class=subid == 11 ? 'active' : '', data-menu="11")
+                                a 用户列表
+                            li(class=subid == 12 ? 'active' : '', data-menu="12")
+                                a 子公司
+                            li(class=subid == 13 ? 'active' : '', data-menu="13")
+                                a 加盟商
+                            li(class=subid == 14 ? 'active' : '', data-menu="14")
+                                a 客户
+                            li(class=subid == 15 ? 'active' : '', data-menu="15")
+                                a 线路报价
+                            li(class=subid == 16 ? 'active' : '', data-menu="16")
+                                a 车辆资源
                     li.order(class=pid == 2 ? 'active' : '')
                         .menu-block
                         .menu-icon
                             icon.glyphicon.glyphicon-th-list
                         .menu-text
-                            a(href="/consignment") 运单列表
-                    li
+                            a 运单管理
+                        ul.menu-list
+                            li(class=subid == 21 ? 'active' : '', data-menu="21")
+                                a 运单列表
+                    li.upload(class=pid == 3 ? 'active' : '')
                         .menu-block
                         .menu-icon
-                            icon.glyphicon.glyphicon-book
+                            icon.glyphicon.glyphicon-th-list
                         .menu-text
-                            a(href="/users/logout") 登出
+                            a 上传小程序图片
+                        ul.menu-list
+                            li(class=subid == 31 ? 'active' : '', data-menu="31")
+                                a 运单查询头图
+                            li(class=subid == 32 ? 'active' : '', data-menu="32")
+                                a 线路轮播图
             .main-container
-                //ol.breadcrumb
-                //    each item in breadcrumb
-                //        li= item
+                - if (breadcrumb)
+                    ol.breadcrumb
+                        each item in breadcrumb
+                            li= item
                 block content
         script(src="/libs/bootstrap/dist/js/bootstrap.min.js")
         script(src="/libs/jquery/dist/jquery.validate.min.js")

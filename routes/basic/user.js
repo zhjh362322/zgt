@@ -6,13 +6,25 @@ var Company = require('../../database/model/companyModel');
 var Plant = require('../../database/model/plantModel');
 var Consignment = require('../../database/model/consignmentModel');
 router.route('/').get(function(req, res, next) {
-    User.findAll(function(err, docs) {
-        if(err) {
-            res.status(500).json({err: '网络错误'})
-        } else {
-            res.render('basic/user', { pid: 1, subid: 11, breadcrumb: ['基础资料', '用户列表'], users: docs });
-        }
-    })
+    var search = req.query.search;
+    if(!search) {
+        User.findAll(function(err, docs) {
+            if(err) {
+                res.status(500).json({err: '网络错误'})
+            } else {
+                res.render('basic/user', { pid: 1, subid: 11, breadcrumb: ['基础资料', '用户列表'], users: docs });
+            }
+        })
+    } else {
+        var reg = new RegExp(search, 'i')
+        User.findAll({$or: [{uid: reg}, {name: reg}]}, function(err, docs) {
+            if(err) {
+                res.status(500).json({err: '网络错误'})
+            } else {
+                res.render('basic/user', { pid: 1, subid: 11, breadcrumb: ['基础资料', '用户列表'], users: docs });
+            }
+        })
+    }
 }).post(function(req, res) {
     var formData = req.body;
     User.find({uid: formData.uid}, function(err, docs) {
@@ -21,6 +33,10 @@ router.route('/').get(function(req, res, next) {
         } else if(docs.length > 0) {
             res.status(200).json({msg: '帐号已存在'})
         } else {
+            var md5 = crypto.createHash('md5');
+            var pwd = formData.password ? formData.password : '';
+            var newPwd = md5.update(pwd).digest('hex');
+            formData.password = newPwd;
             var user = new User(formData);
             if(formData.level == 1) {
                 user.owner.company = formData.owner;
@@ -40,6 +56,14 @@ router.route('/').get(function(req, res, next) {
                         res.status(200).json(doc);
                     })
                 });
+            } else {
+                user.save(function(err, doc) {
+                    if(err) {
+                        res.status(500).json({err: err.message});
+                    } else {
+                        res.status(200).json(doc);
+                    }
+                })
             }
         }
     })
@@ -51,7 +75,6 @@ router.route('/:name').get(function(req, res) {
         var level = req.query.level;
         if(level == 1) {
             Company.find(null, 'name', function(err, docs) {
-                console.log(docs)
                 if(err) {
                     res.status(500).json({err: err.message});
                 } else {
