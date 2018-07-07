@@ -13,7 +13,10 @@ var UserSchema = new Schema({
     name: String,
     email: String,
     cellphone: String,
-    status: Number,
+    status: {
+        type: Number,
+        default: 2
+    },
     level: Number,
     owner: {
         company: {
@@ -36,7 +39,7 @@ UserSchema.statics = {
         return this.findOne({_id: _id}, {uid: 1, level: 1, name: 1, email: 1, cellphone: 1})
             .populate({
                 path: 'owner.plant',
-                select: 'serial name claim orderNum -_id',
+                select: 'serial name claim orderNum',
                 // 多个ref，1、数组 2、
                 populate: [{
                 	path: 'company',

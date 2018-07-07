@@ -28,8 +28,10 @@ block content
                         td #{item.name}
                         td #{item.email}
                         td #{item.cellphone}
-                        - if (item.status)
+                        - if (item.status == 1)
                             td 启用
+                        - else if (item.status == 2)
+                            td 待审核
                         - else
                             td 停用
                         - if (item.level == 0)
@@ -87,6 +89,7 @@ block content
                                 select.form-control(name="status")
                                     option(value="1") 启用
                                     option(value="0") 停用
+                                    option(value="2") 待审核
                         div.form-group(class="owner")
                             label.control-label.col-sm-2 所有者
                             .col-sm-10

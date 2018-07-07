@@ -10,7 +10,8 @@ $(function() {
                 serial: 'required',
                 name: 'required',
                 type: 'required',
-                company: 'required'
+                company: 'required',
+                cellphone: 'required'
             }
         }).form();
     }

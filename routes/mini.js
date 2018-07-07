@@ -5,7 +5,8 @@ var Plant = require('../database/model/plantModel');
 var User = require('../database/model/userModel');
 var Quotation = require('../database/model/quotationModel');
 var Consignment = require('../database/model/consignmentModel');
-
+var Shipper = require('../database/model/shipperModel');
+var Company = require('../database/model/companyModel');
 // 此路由只接受小程序请求，其他请求返回404
 var err = new Error('Not Found');
 err.status = 404;
@@ -18,8 +19,8 @@ router.post('/login', function(req, res, next) {
         User.findByUid(data.uid, function(err, doc) {
             if(err) {
                 res.status(500).json({code: -1, msg: '网络出错'})
-                console.log(doc)
-                console.log(newPwd)
+            } else if(doc.status == 2) {
+                res.status(200).json({code: 0, msg: '请等待审核'});
             } else if(doc && doc.password == newPwd && doc.status == 1) {
                 // 1 子公司； 2 加盟商； 0 管理员
                 if(doc.level == 1) {
@@ -95,11 +96,68 @@ router.route('/consignment').get(function(req, res, next) {
     }
 })
 
-router.get('/test', function(req, res, next) {
-    Consignment.findAllOrder(function(err, docs) {
-        res.send(docs)
+router.route('/shipper').get(function(req, res) {
+    Shipper.findAll(function(err, docs) {
+        if(err) {
+            res.status(500).json({err: '网络错误'})
+        } else {
+            res.status(200).json(docs);
+        }
+    })
+}).post(function(req, res) {
+    var formData = req.body;
+    var shipper = new Shipper(formData);
+    shipper.save(function(err, doc) {
+        if(err) {
+            res.status(500).json(err);
+        } else {
+            // 把客户和加盟商关联
+            Plant.update({"_id": formData.plant}, {
+                $push: {shipper: doc._id}
+            }, function(err, docs) {
+                res.status(200).json(doc);
+            })
+        }
+    })
+});
+
+router.get('/company', function(req, res) {
+    Company.find(null, 'name', function(err, docs) {
+        if(err) {
+            res.status(500).json({err: '网络错误'})
+        } else {
+            res.status(200).json(docs);
+        }
     })
 })
+
+router.post('/plant', function(req, res) {
+    var formData = req.body;
+    formData.serial = formData.cellphone;
+
+    Plant.find({$or: [{serial: formData.serial}, {cellphone: formData.cellphone}]}, function (err, docs) {
+        if (err) {
+            res.status(500).json({err: err.message});
+        } else if (docs.length > 0) {
+            res.status(200).json({code: 304, msg: '用户已存在'})
+        } else {
+            var plant = new Plant(formData);
+            plant.save(function (err, doc) {
+                Company.update({"_id": formData.company}, {
+                    $push: {plant: doc._id}
+                }, function (err, docs) {
+                    res.status(200).json(doc);
+                })
+            });
+        }
+    })
+})
+
+// router.get('/test', function(req, res, next) {
+//     Consignment.findAllOrder(function(err, docs) {
+//         res.send(docs)
+//     })
+// })
 module.exports = router;
 
 // {

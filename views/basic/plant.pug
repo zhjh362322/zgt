@@ -46,6 +46,10 @@ block content
                     form#plant.form-horizontal
                         input(type="hidden", name="id")
                         div.form-group
+                            label.control-label.col-sm-2 手机号码
+                            .col-sm-10
+                                input.form-control(type="text", name="cellphone")
+                        div.form-group
                             label.control-label.col-sm-2 编码
                             .col-sm-10
                                 input.form-control(type="text", name="serial")
@@ -53,6 +57,10 @@ block content
                             label.control-label.col-sm-2 中文名
                             .col-sm-10
                                 input.form-control(type="text", name="name")
+                        div.form-group
+                            label.control-label.col-sm-2 邮箱
+                            .col-sm-10
+                                input.form-control(type="text", name="email")
                         div.form-group
                             label.control-label.col-sm-2 类型
                             .col-sm-10
@@ -62,11 +70,11 @@ block content
                         div.form-group
                             label.control-label.col-sm-2 出险次数
                             .col-sm-10
-                                input.form-control(type="text", name="claim")
+                                input.form-control(type="number", name="claim")
                         div.form-group
                             label.control-label.col-sm-2 运单数量
                             .col-sm-10
-                                input.form-control(type="text", name="orderNum")
+                                input.form-control(type="number", name="orderNum")
                         div.form-group
                             label.control-label.col-sm-2 归属公司
                             .col-sm-10

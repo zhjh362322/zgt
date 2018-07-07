@@ -7,6 +7,7 @@ var ShipperSchema = new Schema({
     companyName: String,
     address: String,
     type: Number,
+    region: [],
     plant: {
         type: Schema.Types.ObjectId,
         ref: 'Plant'
