@@ -14,6 +14,7 @@ $(function() {
     // 表头新增按钮
     $('.showAdd').click(function(e) {
         $('#quotation input').val('');
+        $('.plant').show();
         $('#quotationModal').modal('show');
     })
     $('.search').click(function(e) {
@@ -91,7 +92,7 @@ $(function() {
 
     $('.mod').click(function(e) {
         var id = $(this)[0].dataset.id;
-        $('.plantSelect').attr('disabled', true)
+        $('.plant').hide();
         $.get('/basic/quotation/mod?id=' + id, function(data, status) {
             if(status === 'success') {
                 var ipts = $('#quotation input');

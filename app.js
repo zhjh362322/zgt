@@ -17,6 +17,9 @@ app.set('view engine', 'pug');
 // uncomment after placing your favicon in /public
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(session({
+  // express-session deprecated undefined saveUninitialized option; 添加下面两行
+  resave:false,//添加这行
+  saveUninitialized: true,//添加这行 
     secret: 'zgt',
     store: new mongoStore({
         url: config.dburl + config.dbname,

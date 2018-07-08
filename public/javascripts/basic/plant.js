@@ -18,6 +18,7 @@ $(function() {
     // 表头新增按钮
     $('.showAdd').click(function(e) {
         $('#plant input').val('');
+        $('.company').show();
         $('#plantModal').modal('show');
     })
     $('.search').click(function(e) {
@@ -71,7 +72,7 @@ $(function() {
 
     $('.mod').click(function(e) {
         var id = $(this)[0].dataset.id;
-        $('.companySelect').attr('disabled', true)
+        $('.company').hide();
         $.get('/basic/plant/mod?id=' + id, function(data, status) {
             if(status === 'success') {
                 var ipts = $('#plant input');

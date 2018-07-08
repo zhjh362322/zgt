@@ -19,9 +19,13 @@ router.post('/login', function(req, res, next) {
         User.findByUid(data.uid, function(err, doc) {
             if(err) {
                 res.status(500).json({code: -1, msg: '网络出错'})
+            } else if(!doc) {
+                res.status(200).json({code: 0, msg: '帐号不存在'});
             } else if(doc.status == 2) {
                 res.status(200).json({code: 0, msg: '请等待审核'});
-            } else if(doc && doc.password == newPwd && doc.status == 1) {
+            } else if(doc.status == 0) {
+                res.status(200).json({code: 0, msg: '账号已停用'});
+            } else if(doc.password == newPwd) {
                 // 1 子公司； 2 加盟商； 0 管理员
                 if(doc.level == 1) {
                     User.findCompany(doc._id, function(err, rst) {
@@ -36,7 +40,7 @@ router.post('/login', function(req, res, next) {
                     res.status(200).json(doc);
                 }
             } else {
-                res.status(200).json({code: 0, msg: '帐号密码不正确'});
+                res.status(200).json({code: 0, msg: '密码错误'});
             }
         });
     } else {
@@ -86,9 +90,7 @@ router.route('/consignment').get(function(req, res, next) {
             if(err) {
                 res.status(500).json(err);
             } else {
-                Consignment.findAllOrder(data.uid, function(err, docs) {
-                    res.send(docs);
-                })
+                res.status(200).json({code: 1})
             }
         })
     } else {

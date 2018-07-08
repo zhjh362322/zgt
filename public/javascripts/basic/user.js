@@ -18,6 +18,8 @@ $(function() {
     // 表头新增按钮
     $('.showAdd').click(function(e) {
         $('#user input').val('');
+        $('.level').show();
+        $('.owner').show();
         $('#userModal').modal('show');
     })
     $('.search').click(function(e) {
@@ -71,8 +73,8 @@ $(function() {
 
     $('.mod').click(function(e) {
         $('.level').hide();
+        $('.owner').hide();
         var id = $(this)[0].dataset.id;
-        $('.plantSelect').attr('disabled', true);
         $.get('/basic/user/mod?id=' + id, function(data, status) {
             if(status === 'success') {
                 var ipts = $('#user input');

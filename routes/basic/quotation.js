@@ -87,17 +87,20 @@ router.route('/:name').get(function (req, res) {
     }
 }).post(upload.single('qheadimg'), function (req, res, next) {
     var opt = req.params.name;
-    var formData = req.body;
     if (opt == 'mod') {
         var formData = req.body;
-        if (req.file) {
+        console.log(formData)
+        var file = req.file;
+        if (file) {
+            console.log(file)
             var fileFormat = (file.originalname).split(".");
             var oldname = config.quotationImgPath + file.filename;
             var newname = config.quotationImgPath + formData.plant + "." + fileFormat[fileFormat.length - 1];
+            console.log(newname)
             fs.renameSync(oldname, newname);
             formData['headimg'] = config.url + '/uploads/quotation/' + formData.plant + "." + fileFormat[fileFormat.length - 1];
         }
-        Quotation.update({_id: formData.id}, formData, function (err, doc) {
+        Quotation.update({_id: formData.id}, {$set: formData}, function (err, doc) {
             if (err) {
                 res.status(500).json({err: err.message});
             } else {
